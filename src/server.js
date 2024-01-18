@@ -1,9 +1,11 @@
 const express = require('express')
 const path = require('path')
+require('dotenv').config()
 
+//console.log(process.env)
 const app = express()
-const port = 8081
-const hostname = 'localhost'
+const port = process.env.PORT || 8888;
+const hostname = process.env.HOST_NAME;
 //config template engine
 // app.set('views', './src/views/')
 app.set('views', path.join(__dirname, 'views'));
