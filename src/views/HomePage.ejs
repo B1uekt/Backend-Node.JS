@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/redirectPage.js"></script>
 </head>
 
 <body>
@@ -37,7 +38,7 @@
 
     </div> -->
     <div class="table-container">
-
+        <!-- <%= JSON.stringify(listUsers) %> -->
         <div class="title">
             List User
         </div>
@@ -51,6 +52,7 @@
                 <th>Action</th>
             </tr>
             <% listUsers.forEach(function(user){ %>
+
                 <tr>
                     <td>
                         <%= user.id %>
@@ -66,7 +68,8 @@
                     </td>
                     <td>
                         <a href="/edit/<%= user.id %>">Edit</a>
-                        <button>Delete</button>
+                        <button onclick="redirectToUpdatePage('<%= user.id %>')">Delete</button>
+
                     </td>
                 </tr>
                 <% }) %>
