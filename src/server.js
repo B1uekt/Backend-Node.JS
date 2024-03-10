@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const configviewEngine = require('./config/viewEngine')
 const webRoutes = require('./routes/web')
-const connectDB = require('./config/connectDB')
+
 
 const app = express()
 const port = process.env.PORT || 8888;
@@ -16,8 +16,15 @@ app.use(express.urlencoded()); //Parse URL-encoded bodies
 configviewEngine(app);
 app.use('/', webRoutes)
 
+const db = require("./models");
 
-connectDB();
+db.sequelize.sync()
+    .then(() => {
+        console.log("Synced database.");
+    })
+    .catch((err) => {
+        console.log("Failed to sync database: " + err.message);
+    });
 
 
 app.listen(port, hostname, () => {

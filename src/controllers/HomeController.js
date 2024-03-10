@@ -1,12 +1,21 @@
 const connection = require('../config/database')
+const db = require('../models/index')
 const { getAllUsers, getUserbyId, updateUserbyId, createUser, deleteUser } = require('../services/CRUDServices')
 const getHomepage = async (req, res) => {
     let results = await getAllUsers();
     return res.render('HomePage.ejs', { listUsers: results });
 }
 
-const getABC = (req, res) => {
-    res.send('ABC')
+const getABC = async (req, res) => {
+    try {
+        let data = await db.User.findAll();
+        res.render('ABCpage.ejs', { dataUser: data });
+    }
+    catch (e) {
+        console.log(e)
+    }
+
+
 }
 
 const testPage = (req, res) => {

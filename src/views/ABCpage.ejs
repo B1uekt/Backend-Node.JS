@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="table-container">
+        <!-- <%= JSON.stringify(dataUser) %> -->
+        <div class="title">
+            List User
+        </div>
+        <table>
+
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>firstName</th>
+                <th>lastName</th>
+                <th>Action</th>
+            </tr>
+            <% dataUser.forEach(function(user){ %>
+
+                <tr>
+                    <td>
+                        <%= user.id %>
+                    </td>
+                    <td>
+                        <%= user.firstName %>
+                    </td>
+                    <td>
+                        <%= user.lastName %>
+                    </td>
+                    <td>
+                        <%= user. email%>
+                    </td>
+
+                </tr>
+                <% }) %>
+        </table>
+    </div>
+</body>
+
+</html>
