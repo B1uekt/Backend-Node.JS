@@ -47,8 +47,11 @@
             <tr>
                 <th>ID</th>
                 <th>Email</th>
-                <th>Name</th>
-                <th>City</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Address</th>
+                <th>Gender</th>
+                <th>Role</th>
                 <th>Action</th>
             </tr>
             <% listUsers.forEach(function(user){ %>
@@ -61,10 +64,19 @@
                         <%= user.email %>
                     </td>
                     <td>
-                        <%= user.name %>
+                        <%= user.firstName %>
                     </td>
                     <td>
-                        <%= user.city %>
+                        <%= user.lastName %>
+                    </td>
+                    <td>
+                        <%= user.address %>
+                    </td>
+                    <td>
+                        <%= user.gender ? 'Men' : 'Women' %>
+                    </td>
+                    <td>
+                        <%= user.roleid %>
                     </td>
                     <td>
                         <a href="/edit/<%= user.id %>">Edit</a>

@@ -1,26 +1,21 @@
-const connection = require('../config/database')
-const db = require('../models/index')
+
 const { getAllUsers, getUserbyId, updateUserbyId, createUser, deleteUser } = require('../services/CRUDServices')
+
 const getHomepage = async (req, res) => {
-    let results = await getAllUsers();
-    return res.render('HomePage.ejs', { listUsers: results });
+    let data = await getAllUsers();
+    return res.render('HomePage.ejs', { listUsers: data });
 }
 
-const getABC = async (req, res) => {
-    try {
-        let data = await db.User.findAll();
-        console.log(data)
-        res.render('ABCpage.ejs', { dataUser: data });
-    }
-    catch (e) {
-        console.log(e)
-    }
-
-
+const getCreateUserPage = (req, res) => {
+    res.render('CreateUser.ejs');
 }
 
-const testPage = (req, res) => {
-    res.render('example.ejs');
+const postCreateUser = async (req, res) => {
+
+    let { email, firstname, lastname, address, gender, role } = req.body;
+
+    await createUser(email, firstname, lastname, address, gender, role);
+    res.redirect('/');
 }
 
 const EditUserPage = async (req, res) => {
@@ -29,22 +24,15 @@ const EditUserPage = async (req, res) => {
     res.render('EditUser.ejs', { userEdit: user }); //lấy biến user gán cho userEdit để trả về cho file view 
 }
 
-const postCreateUser = async (req, res) => {
-
-    let { email, myname, city } = req.body;
-
-    await createUser(email, myname, city);
-    res.redirect('/');
+const testPage = (req, res) => {
+    res.render('example.ejs');
 }
 
-const getCreateUserPage = (req, res) => {
-    res.render('CreateUser.ejs');
-}
 
 const postUpdateUser = async (req, res) => {
 
-    let { email, myname, city, userId } = req.body;
-    await updateUserbyId(email, myname, city, userId);
+    let { email, firstname, lastname, address, gender, role, userId } = req.body;
+    await updateUserbyId(email, firstname, lastname, address, gender, role, userId);
 
     // res.send('update user succeed !')
     res.redirect('/');
@@ -58,7 +46,6 @@ const DeleteUser = async (req, res) => {
 }
 module.exports = {
     getHomepage,
-    getABC,
     testPage,
     postCreateUser,
     getCreateUserPage,

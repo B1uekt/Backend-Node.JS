@@ -19,20 +19,41 @@
                 <legend>Edit Users</legend>
 
                 <input type="hidden" name="userId" value="<%= userEdit.id %>" type="text">
+
                 <div class="input-group">
                     <label for="">Email:</label>
-                    <input name="email" value="<%= userEdit.email %>" type="text">
-
+                    <input id="emailId" name="email" type="text" value="<%= userEdit.email %>">
                 </div>
 
                 <div class="input-group">
-                    <label for="">Name:</label>
-                    <input value="<%= userEdit.name %>" name="myname" type="text">
+                    <label for="">First Name:</label>
+                    <input name="firstname" type="text" value="<%= userEdit.firstName %>">
                 </div>
 
                 <div class="input-group">
-                    <label for="">City:</label>
-                    <input value="<%= userEdit.city %>" name="city" type="text">
+                    <label for="">Last Name:</label>
+                    <input name="lastname" type="text" value="<%= userEdit.lastName %>">
+                </div>
+
+                <div class="input-group">
+                    <label for="">Address:</label>
+                    <input name="address" type="text" value="<%= userEdit.address %>">
+                </div>
+
+                <div class="input-group">
+                    <Label>Gender:</Label>
+                    <select name="gender">
+                        <%= userEdit.gender %>
+                            <option value="Men" <%=userEdit.gender ? 'selected' : '' %> >Men</option>
+                            <option value="Women" <%=!userEdit.gender ? 'selected' : '' %> >Women</option>
+                    </select>
+                </div>
+
+
+
+                <div class="input-group">
+                    <label for="">Role:</label>
+                    <input name="role" type="text" value="<%= userEdit.roleid %>">
                 </div>
                 <button>Save</button>
             </fieldset>

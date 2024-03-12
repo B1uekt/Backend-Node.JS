@@ -1,35 +1,77 @@
 const connection = require('../config/database')
+const db = require('../models/index')
 
 const getAllUsers = async () => {
-    let [results, fields] = await connection.query('select * from Users ');
-    return results;
+    try {
+        let users = await db.User.findAll();
+        return users;
+    } catch (error) {
+        throw error;
+    }
+}
+
+const createUser = async (email, firstname, lastname, address, gender, role) => {
+    try {
+        let newGender = (gender === 'Men') ? true : false;
+        await db.User.create({
+            email: email,
+            firstName: firstname,
+            lastName: lastname,
+            address: address,
+            gender: newGender,
+            roleid: role
+        });
+    } catch (error) {
+        console.error('Error:', error);
+    }
 }
 
 const getUserbyId = async (userId) => {
-    let [results, fields] = await connection.query(
-        'SELECT * FROM Users WHERE id = ?', [userId]
-    );
+    try {
+        let results = await db.User.findOne({
+            where: {
+                id: userId
+            }
+        });
+        return results
+    }
+    catch (error) {
+        console.error('Error:', error);
+    }
+}
 
-    let user = results.length && results.length > 0 ? results[0] : {};
-    return user;
-}
-const updateUserbyId = async (email, myname, city, userId) => {
-    let [results, fields] = await connection.query(
-        'UPDATE Users set email = ?, name = ?, city = ? WHERE id = ?', [email, myname, city, userId],
-    );
+const updateUserbyId = async (email, firstname, lastname, address, gender, role, userId) => {
+    try {
+        let newGender = (gender === 'Men') ? true : false;
+        await db.User.update({
+            email: email,
+            firstName: firstname,
+            lastName: lastname,
+            address: address,
+            gender: newGender,
+            roleid: role
+        },
+            {
+                where: {
+                    id: userId
+                }
+            });
+    }
+    catch (error) {
+        console.error('Error:', error)
+    }
 }
 
-const createUser = async (email, myname, city) => {
-    let [results, fields] = await connection.query(
-        'INSERT INTO Users (email, name, city) VALUES (?,?,?)', [email, myname, city],
-    );
-}
+
 
 const deleteUser = async (userId) => {
-    let [results, fields] = await connection.query(
-        'DELETE FROM Users WHERE id = ?', [userId],
-    );
+    await db.User.destroy({
+        where: {
+            id: userId
+        }
+    });
 }
+
 module.exports = {
     getAllUsers,
     getUserbyId,
