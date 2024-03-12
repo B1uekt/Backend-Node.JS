@@ -9,6 +9,7 @@ const getHomepage = async (req, res) => {
 const getABC = async (req, res) => {
     try {
         let data = await db.User.findAll();
+        console.log(data)
         res.render('ABCpage.ejs', { dataUser: data });
     }
     catch (e) {
